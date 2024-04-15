@@ -1,0 +1,32 @@
+<div>
+  <ul>
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/shorts">Shorts</a></li>
+    <% if(role === 'admin'){ %>
+      <li><a href="/admin">Admin</a></li>
+  <% } 
+    
+  </ul>
+</div>
+
+<h1>URLS</h1>
+<form method="POST" action="/shorts">
+  <input type="text" name="url" placeholder="Add url" />
+  <button type="submit"  class="add-button">Add</button>
+</form>
+<table>
+  <thead>
+    <th>url</th>
+    <th>visits</th>
+    <th>created_time</th>
+  </thead>
+  <tbody>
+    <% urls.forEach((el, index)=>{%>
+      <tr class="task-list-container">
+        <td><a href="/shorts/<%=el.uiid%>"><%= el.url%></a></td>
+        <td><%= el.visits%></td>
+        <td><%= el.created_time%></td>
+      </tr>  
+    <%});%>
+  </tbody>
+</table>

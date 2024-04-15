@@ -1,0 +1,19 @@
+{
+  "name": "url_shorter_dashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SergeyPodolyak2018/url_shorter_dashboard.git"
+  },
+  "author": "Sergey Podolyak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SergeyPodolyak2018/url_shorter_dashboard/issues"
+  },
+  "homepage": "https://github.com/SergeyPodolyak2018/url_shorter_dashboard#readme"
+}
