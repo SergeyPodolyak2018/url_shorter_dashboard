@@ -23,7 +23,13 @@ const getByName = (email) => {
 };
 
 const getAll = () => {
-  return userRep;
+  return db.query().select('*');
 };
 
-module.exports = { save, get, getAll, getByName };
+const deleteUser = (id) => {
+  const idLoc = Number(id);
+
+  return db.query().where('id', '=', idLoc).del();
+};
+
+module.exports = { save, get, getAll, getByName, deleteUser };

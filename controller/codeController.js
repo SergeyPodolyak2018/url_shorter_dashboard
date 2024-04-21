@@ -27,14 +27,24 @@ const checkRate = async (req, res, next) => {
 
 const getCode = async (req, res) => {
   let shortCode = res.locals.shorts;
-  console.log(shortCode);
+
   const code = await codeService.getCode(shortCode);
   if (code.length > 0) {
     await codeService.visitCode(code[0].id, code[0].visits + 1);
     res.redirect(code[0].url);
   }
+};
+const deleteCode = async (req, res) => {
+  let shortCode = res.locals.shorts;
 
-  console.log(code);
+  try {
+    const code = await codeService.deleteCode(shortCode);
+
+    res.redirect('/shorts');
+  } catch (err) {
+    console.log(err);
+    res.redirect('/shorts');
+  }
 };
 
-module.exports = { getCode, checkId, checkRate };
+module.exports = { getCode, checkId, checkRate, deleteCode };

@@ -1,0 +1,74 @@
+<h1>administration page</h1>
+
+<div>
+  <ul class="tabs">
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/shorts">Shorts</a></li>
+    <li><a href="/admin">Admin</a></li>
+  </ul>
+</div>
+
+<h1>Create User</h1>
+<form method="POST" action="" id="loginForm">
+  <input type="email" required name="email" placeholder="Email" />
+  <input type="text" required name="username" placeholder="Name" />
+  <input type="password" required name="password" placeholder="Password" />
+
+  <button type="submit"  class="add-button">Create</button>
+</form>
+
+<div>Users</div>
+<table class="dataTable">
+  <thead>
+    <th>id</th>
+    <th>email</th>
+    <th>name</th>
+    <th>role</th>
+    <th>created_time</th>
+    <th>rate</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% users.forEach((el, index)=>{%>
+      <tr class="task-list-container">
+        <td><%= el.id%></td>
+        <td><%= el.email%></td>
+        <td><%= el.name%></td>
+        <td><%= el.role%></td>
+        <td><%= el.created_time%></td>
+        <td><%= el.rate%></td>
+        <td><button onclick="deleteUser(<%= el.id%>)">Delete</button> <button onclick="resetUserRate(<%= el.id%>)">Reset Rate</button></td>
+      </tr>  
+    <%});%>
+  </tbody>
+</table>
+<div>Shorts</div>
+<table class="dataTable">
+  <thead>
+    <th>url</th>
+    <th>visits</th>
+    <th>created_time</th>
+    <th>uers name</th>
+    <th>uers email</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% shorts.forEach((el, index)=>{%>
+      <tr class="task-list-container">
+        <td><%= el.url%></td>
+        <td><%= el.visits%></td>
+        <td><%= el.created_time%></td>
+        <td><%= el.name%></td>
+        <td><%= el.email%></td>
+        <td><button onclick="deleteShort('<%= el.uiid%>')">Delete</button></td>
+      </tr>  
+    <%});%>
+  </tbody>
+</table>
+
+
+
+<script src="/createUser.js"></script>
+<script src="/deleteUser.js"></script>
+<script src="/deleteShort.js"></script>
+<script src="/resetRate.js"></script>

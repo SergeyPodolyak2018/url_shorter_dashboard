@@ -1,5 +1,5 @@
 <div>
-  <ul>
+  <ul class="tabs">
     <li><a href="/dashboard">Dashboard</a></li>
     <li><a href="/shorts">Shorts</a></li>
     <% if(role === 'admin'){ %>
@@ -25,7 +25,29 @@
         <td><a href="/shorts/<%=el.uiid%>"><%= el.url%></a></td>
         <td><%= el.visits%></td>
         <td><%= el.created_time%></td>
+        <td><button onclick="deleteData('<%=el.uiid%>')">Delete</button></td>
       </tr>  
     <%});%>
   </tbody>
 </table>
+
+
+<script>
+
+  async function deleteData(uiid) {
+
+    try {
+      const response = await fetch(`/shorts/${uiid}`, {
+        method: "DELETE",
+        redirect: 'follow',
+      }).then(res => {
+        if (res.redirected) {
+            document.location = res.url;
+        }
+      })
+    } catch (e) {
+      console.error(e);
+    }
+}
+
+</script>

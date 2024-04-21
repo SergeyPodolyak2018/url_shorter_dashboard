@@ -1,0 +1,109 @@
+<div>
+  <ul class="tabs">
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/shorts">Shorts</a></li>
+    <% if(role === 'admin'){ %>
+      <li><a href="/admin">Admin</a></li>
+    <% } %>
+  </ul>
+</div>
+
+<h1>DASHBOARD</h1>
+
+<div class="data_container">
+  <div>Total shorts - </div>
+  <div id="total">-</div> 
+</div>
+<div class="data_container">
+  <div>Total visits - </div>
+  <div id="totalvisits">-</div> 
+</div>
+<h1>TOP SHORTS</h1>
+<div>
+  <table class="dataTable">
+    <thead>
+      <th>url</th>
+      <th>visits</th>
+      <th>created_time</th>
+    </thead>
+    <tbody id="topFive">
+      
+    </tbody>
+  </table>
+</div>
+<h1>TOP MY SHORTS</h1>
+<div >
+  <table class="dataTable">
+    <thead>
+      <th>url</th>
+      <th>visits</th>
+      <th>created_time</th>
+    </thead>
+    <tbody id="topMy">
+      
+    </tbody>
+  </table>
+</div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+
+
+<script>
+  const totalNode = document.getElementById('total');
+  const totalVisitsNode = document.getElementById('totalvisits');
+  const topFiveTable = document.getElementById('topFive');
+  const topMyTable = document.getElementById('topMy');
+
+
+
+  const socket = io();
+  socket.emit("join");
+  socket.on('statisticData', (msg) => {
+    
+    insertdata(msg);
+  });
+  socket.on('error', (msg) => {
+    console.log(msg)
+  });
+  function insertdata(data){
+    if(!totalNode || !totalVisitsNode || !topFiveTable || !topMyTable) return;
+    totalNode.innerText = data?.shortsQuantity?.total;
+    totalVisitsNode.innerText = data?.sumVisits?.total
+    let topFive = '';
+    for (const iterator of data.topAll) {
+      topFive = topFive + `<tr class="task-list-container">
+          <td><a href="/shorts/${iterator.uiid}">${iterator.url}</a></td>
+          <td>${iterator.visits}</td>
+          <td>${iterator.created_time}</td>
+        </tr>  `
+    }
+    console.log(topFiveTable);
+    topFiveTable.innerHTML = topFive;
+    let topMy = '';
+    for (const iterator of data.topMy) {
+      topMy = topMy + `<tr class="task-list-container">
+          <td><a href="/shorts/${iterator.uiid}">${iterator.url}</a></td>
+          <td>${iterator.visits}</td>
+          <td>${iterator.created_time}</td>
+        </tr>  `
+    }
+    topMyTable.innerHTML = topMy;
+
+
+  }
+
+  function tabletemplate(content){
+    return `<table>
+    <thead>
+      <th>url</th>
+      <th>visits</th>
+      <th>created_time</th>
+    </thead>
+    <tbody>
+      ${content}
+    </tbody>
+  </table>`
+  }
+  
+</script>

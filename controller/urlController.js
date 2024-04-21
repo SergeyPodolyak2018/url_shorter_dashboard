@@ -2,7 +2,7 @@ const urlService = require('../services/urlService.js');
 const userService = require('../services/userService.js');
 
 const getUrls = async (req, res) => {
-  const urls = await urlService.getAll(res.locals.decoded.id);
+  const urls = await urlService.getAllForUser(res.locals.decoded.id);
   console.info(res.locals.decoded.id);
   res.render('./pages/urls.ejs', { urls, role: res.locals.decoded.role });
 };

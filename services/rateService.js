@@ -57,6 +57,11 @@ const incrementUserRate = async (userid) => {
   rateRepository.set(createUserKey(userid), Number(rate) - 1);
 };
 
+const getUserRate = async (userid) => {
+  const rate = await rateRepository.get(createUserKey(userid));
+  return rate;
+};
+
 const initUserRate = async (id) => {
   await rateRepository.set(createUserKey(id), USER_RATE);
 };
@@ -79,4 +84,5 @@ module.exports = {
   initUserNextTime,
   incrementUserRate,
   checkRate,
+  getUserRate,
 };

@@ -11,5 +11,15 @@ const USER_RATE = process.env['USER_RATE']
 const URL_RATE = process.env['URL_RATE']
   ? Number(process.env['URL_RATE'])
   : 100;
+const REDIS_HOST = process.env['REDIS_HOST'];
+const REDIS_PORT = process.env['REDIS_PORT'];
 
-module.exports = { PORT, BASE_URI, ACCESS_TOKEN_SECRET, USER_RATE, URL_RATE };
+module.exports = {
+  PORT,
+  BASE_URI,
+  ACCESS_TOKEN_SECRET,
+  USER_RATE,
+  URL_RATE,
+  REDIS_HOST,
+  REDIS_PORT,
+};

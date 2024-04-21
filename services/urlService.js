@@ -16,8 +16,33 @@ const saveUrl = async (userId, url) => {
   }
 };
 
-const getAll = (userId) => {
+const getAllForUser = (userId) => {
   return urlRepository.getByUser(userId);
 };
+const getAll = () => {
+  return urlRepository.getAll();
+};
+const deleteShort = (uiid) => {
+  return urlRepository.deleteById(uiid);
+};
 
-module.exports = { getUrlByName, saveUrl, getAll };
+const shortsQuantity = () => {
+  return urlRepository.count();
+};
+const shortsSummOfAllVisits = () => {
+  return urlRepository.sum('visits');
+};
+const topOfShorts = (quantity, id, colummn) => {
+  return urlRepository.top(quantity, id, colummn);
+};
+
+module.exports = {
+  getUrlByName,
+  saveUrl,
+  getAllForUser,
+  getAll,
+  deleteShort,
+  shortsQuantity,
+  shortsSummOfAllVisits,
+  topOfShorts,
+};

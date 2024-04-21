@@ -15,7 +15,7 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await UserService.getUserByEmail(email);
-    console.log(user);
+
     if (await bcrypt.compare(password, user[0].password)) {
       const accessToken = jwt.sign(
         { email, id: user[0].id },

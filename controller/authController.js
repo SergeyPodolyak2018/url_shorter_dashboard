@@ -15,7 +15,7 @@ const verifyAccessToken = async (req, res, next) => {
     const decoded = jwt.verify(token, ACCESS_TOKEN_SECRET);
     const email = decoded?.email;
     const user = await getUserByEmail(email);
-    console.log(user);
+
     if (email && user[0]) {
       res.locals.decoded = { email, id: decoded.id, role: user[0].role };
       return next();
@@ -30,4 +30,34 @@ const verifyAccessToken = async (req, res, next) => {
   }
 };
 
-module.exports = { verifyAccessToken };
+const getDataFromToken = async (token) => {
+  if (token === '') {
+    return { error: 'Not valid credentials' };
+  }
+  try {
+    const decoded = jwt.verify(token, ACCESS_TOKEN_SECRET);
+    const email = decoded?.email;
+    const user = await getUserByEmail(email);
+
+    if (email && user[0]) {
+      return { email, id: decoded.id, role: user[0].role };
+    } else {
+      return { error: 'Not valid credentials' };
+    }
+  } catch (err) {
+    console.log(err);
+    return { error: 'Not valid credentials' };
+  }
+};
+
+const verifyRole = async (req, res, next) => {
+  const { role } = res.locals.decoded;
+  if (role === 'admin') {
+    return next();
+  } else {
+    res.render('./pages/permisions.ejs');
+    return;
+  }
+};
+
+module.exports = { verifyAccessToken, verifyRole, getDataFromToken };

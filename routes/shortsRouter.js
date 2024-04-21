@@ -5,6 +5,7 @@ const {
   getCode,
   checkId,
   checkRate,
+  deleteCode,
 } = require('../controller/codeController.js');
 
 const router = express.Router();
@@ -15,6 +16,9 @@ router
   .get(verifyAccessToken, getUrls)
   .post(verifyAccessToken, postUrls);
 
-router.route(`/:id`).get([verifyAccessToken, checkRate], getCode);
+router
+  .route(`/:id`)
+  .get([verifyAccessToken, checkRate], getCode)
+  .delete(verifyAccessToken, deleteCode);
 
 module.exports = router;

@@ -22,5 +22,8 @@ const saveUser = async (email, username, password) => {
 const getAllUsers = () => {
   return userRepository.getAll();
 };
+const deleteUser = (id) => {
+  return userRepository.deleteUser(id);
+};
 
-module.exports = { getUserByEmail, saveUser, getAllUsers };
+module.exports = { getUserByEmail, saveUser, getAllUsers, deleteUser };
